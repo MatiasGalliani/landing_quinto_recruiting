@@ -1,66 +1,194 @@
-"use client";
+'use client';
 
+import { useState, memo, useCallback, useMemo, lazy, Suspense } from "react";
 import Image from "next/image";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import dynamic from 'next/dynamic';
 
-const formSchema = z.object({
-  nome: z.string().min(2, "Il nome deve contenere almeno 2 caratteri"),
-  cognome: z.string().min(2, "Il cognome deve contenere almeno 2 caratteri"),
-  mail: z.string().email("Inserisci un indirizzo email valido"),
-  telefono: z.string().min(10, "Il numero di telefono deve contenere almeno 10 cifre"),
+// Lazy load heavy sections below the fold for faster initial load
+const FormSection = dynamic(() => import('@/components/FormSection').then(mod => ({ default: mod.FormSection })), {
+  loading: () => <div className="h-[600px] animate-pulse bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl" />
 });
 
-export default function Home() {
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [showAmountSelection, setShowAmountSelection] = useState(false);
-  const [loanAmount, setLoanAmount] = useState(37500); // Default to middle value
-  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
-  
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      nome: "",
-      cognome: "",
-      mail: "",
-      telefono: "",
-    },
-  });
-
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    setIsLoading(true);
-    
-    // Simulate loading for 2-3 seconds
-    setTimeout(() => {
-      setIsLoading(false);
-      setShowAmountSelection(true);
-    }, 2500);
+// Extract static data outside component to prevent recreation
+const FAQ_ITEMS = [
+  {
+    question: "Cos'è la Cessione del Quinto?",
+    answer: "La Cessione del Quinto è un prestito personale che ti permette di ottenere fino a 75.000€ senza dover cambiare banca. Il rimborso avviene direttamente dalla busta paga, con trattenute automatiche pari a massimo un quinto dello stipendio netto."
+  },
+  {
+    question: "Quali sono i costi e le commissioni associate?",
+    answer: "Con Creditplan, l'istruttoria è completamente gratuita e non ci sono costi nascosti. Ti garantiamo massima trasparenza su tutti i costi del finanziamento fin dall'inizio, senza sorprese."
+  },
+  {
+    question: "Quanto tempo serve per ottenere il prestito?",
+    answer: "Dopo l'approvazione preliminare in sole 24 ore lavorative, il denaro viene erogato sul tuo conto corrente in massimo 48 ore operative. Il processo è completamente digitale e veloce."
+  },
+  {
+    question: "Quali requisiti devo avere per richiedere la Cessione del Quinto?",
+    answer: "I requisiti principali sono: essere dipendente pubblico o privato con contratto a tempo indeterminato, avere un'età minima di 18 anni e massima che permetta di estinguere il prestito prima del pensionamento, e avere un reddito mensile sufficiente."
+  },
+  {
+    question: "Esiste un limite massimo di età per la Cessione del Quinto?",
+    answer: "Non esiste un limite di età fisso, ma è necessario che tu possa estinguere il prestito prima di raggiungere l'età pensionabile. Il requisito principale è che il contratto di lavoro copra l'intera durata del prestito."
+  },
+  {
+    question: "Cosa succede se non raggiungo i requisiti per rinnovare una Cessione del Quinto già in corso?",
+    answer: "Se non soddisfi più i requisiti per il rinnovo, potrai comunque continuare a estinguere il prestito in corso secondo le condizioni già stabilite. Ti consigliamo di contattarci per valutare insieme le migliori opzioni disponibili."
+  },
+  {
+    question: "Perché dovrei scegliere Creditplan?",
+    answer: "Creditplan offre un servizio rapido, trasparente e completamente digitale. Con oltre 2.000 famiglie soddisfatte, garantiamo approvazione in 24 ore, erogazione in 48 ore, istruttoria gratuita e consulenza professionale in ogni fase del processo."
+  },
+  {
+    question: "Posso richiedere il prestito se sono stato segnalato come cattivo pagatore?",
+    answer: "Ogni caso viene valutato singolarmente. Anche se sei stato segnalato in CRIF o altri registri, possiamo aiutarti a trovare una soluzione. Contattaci per una consulenza gratuita e senza impegno."
+  },
+  {
+    question: "È possibile estinguere anticipatamente la Cessione del Quinto?",
+    answer: "Sì, è possibile estinguere anticipatamente il prestito. Ti consigliamo di contattarci per conoscere le condizioni specifiche e le eventuali penali di estinzione anticipata previste dal tuo contratto."
+  },
+  {
+    question: "Quanto costa la consulenza iniziale con Creditplan?",
+    answer: "La consulenza iniziale con Creditplan è completamente gratuita e senza impegno. I nostri esperti ti guideranno nella valutazione della tua situazione e ti aiuteranno a trovare la soluzione migliore per le tue esigenze."
   }
+] as const;
+
+const STAR_RATINGS = [1, 2, 3, 4, 5] as const;
+
+const BENEFITS_DATA = [
+  {
+    icon: "M13 10V3L4 14h7v7l9-11h-7z",
+    color: "blue",
+    title: "Erogazione rapida",
+    description: "In soli 48 ore operative"
+  },
+  {
+    icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
+    color: "green",
+    title: "100% sicuro",
+    description: "Certificato e garantito"
+  },
+  {
+    icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
+    color: "indigo",
+    title: "Senza cambio banca",
+    description: "Mantieni il tuo conto"
+  },
+  {
+    icon: "M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4",
+    color: "amber",
+    title: "Nessun vincolo",
+    description: "Flessibilità totale"
+  }
+] as const;
+
+// Memoized Benefit Card Component
+const BenefitCard = memo(({ icon, color, title, description }: {
+  icon: string;
+  color: string;
+  title: string;
+  description: string;
+}) => {
+  const colorClasses = {
+    blue: "bg-blue-100 text-blue-600 border-blue-200 hover:border-blue-200",
+    green: "bg-green-100 text-green-600 border-green-200 hover:border-green-200",
+    indigo: "bg-indigo-100 text-indigo-600 border-indigo-200 hover:border-indigo-200",
+    amber: "bg-amber-100 text-amber-600 border-amber-200 hover:border-amber-200"
+  };
+
+  const bgClass = color === 'blue' ? 'bg-blue-100' : color === 'green' ? 'bg-green-100' : color === 'indigo' ? 'bg-indigo-100' : 'bg-amber-100';
+  const textClass = color === 'blue' ? 'text-blue-600' : color === 'green' ? 'text-green-600' : color === 'indigo' ? 'text-indigo-600' : 'text-amber-600';
+
+  return (
+    <div className="flex items-start gap-3 p-4 bg-white rounded-2xl border border-slate-100 hover:border-blue-200 transition-all duration-300 hover:shadow-md">
+      <div className={`flex-shrink-0 w-10 h-10 ${bgClass} rounded-xl flex items-center justify-center`}>
+        <svg className={`w-5 h-5 ${textClass}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={icon} />
+        </svg>
+      </div>
+      <div>
+        <h3 className="font-bold text-slate-900">{title}</h3>
+        <p className="text-sm text-slate-600">{description}</p>
+      </div>
+    </div>
+  );
+});
+
+BenefitCard.displayName = 'BenefitCard';
+
+// Memoized FAQ Item Component
+const FAQItem = memo(({ 
+  faq, 
+  index, 
+  isOpen, 
+  onToggle 
+}: { 
+  faq: typeof FAQ_ITEMS[number]; 
+  index: number; 
+  isOpen: boolean; 
+  onToggle: () => void;
+}) => (
+  <div className="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
+    <button
+      onClick={onToggle}
+      className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 group"
+    >
+      <h3 className="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors pr-8">
+        {faq.question}
+      </h3>
+      <div className="flex-shrink-0">
+        <svg
+          className={`w-6 h-6 text-blue-600 transition-transform duration-300 ${
+            isOpen ? 'rotate-180' : ''
+          }`}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 9l-7 7-7-7"
+          />
+        </svg>
+      </div>
+    </button>
+    <div
+      className={`overflow-hidden transition-all duration-300 ease-in-out ${
+        isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+      }`}
+    >
+      <div className="px-6 pb-5">
+        <div className="pt-2 border-t border-slate-100">
+          <p className="text-slate-600 leading-relaxed pt-4">
+            {faq.answer}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+));
+
+FAQItem.displayName = 'FAQItem';
+
+export default function Home() {
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+
+  // Memoize scroll handler
+  const scrollToForm = useCallback(() => {
+    const formElement = document.querySelector('form');
+    formElement?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, []);
+
+  // Memoize FAQ toggle handlers
+  const handleFaqToggle = useCallback((index: number) => {
+    setOpenFaqIndex(prev => prev === index ? null : index);
+  }, []);
 
   return (
     <main className="min-h-screen relative overflow-hidden">
-      {/* Floating orbs for depth */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-[10%] w-96 h-96 bg-blue-400/10 rounded-full blur-3xl animate-float-slow"></div>
-        <div className="absolute top-1/3 right-[15%] w-80 h-80 bg-indigo-400/10 rounded-full blur-3xl animate-float-medium"></div>
-        <div className="absolute bottom-1/4 left-[20%] w-72 h-72 bg-sky-400/10 rounded-full blur-3xl animate-float-fast"></div>
-        <div className="absolute bottom-20 right-[25%] w-64 h-64 bg-blue-300/10 rounded-full blur-3xl animate-float-slow" style={{ animationDelay: '2s' }}></div>
-      </div>
-      
-      {/* Noise texture overlay for premium feel */}
-      <div className="absolute inset-0 opacity-[0.015] pointer-events-none mix-blend-overlay"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' /%3E%3C/svg%3E")`
-        }}
-      ></div>
 
       {/* Header */}
       <header className="relative z-10 px-6 lg:px-12 py-4 lg:py-6">
@@ -72,17 +200,15 @@ export default function Home() {
                 alt="Creditplan logo"
                 width={280}
                 height={96}
-                quality={95}
+                quality={60}
                 priority
-                draggable={false}
-                onContextMenu={(e) => e.preventDefault()}
-                className="w-auto h-8 lg:h-10 mt-4 lg:mt-0 select-none"
-                style={{ userSelect: 'none', WebkitUserSelect: 'none', MozUserSelect: 'none' }}
+                sizes="(max-width: 768px) 200px, 280px"
+                className="w-auto h-8 lg:h-10 mt-4 lg:mt-0"
               />
               
               {/* Trust Badge - Richieste elaborate - Mobile only, under logo */}
               <div className="md:hidden mt-6 mb-2">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/80 backdrop-blur-sm rounded-full border border-blue-100 shadow-sm">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white rounded-full border border-blue-100 shadow-sm">
                   <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                   <span className="text-xs font-medium text-slate-700">
                     Richieste elaborate oggi: <span className="text-blue-600 font-bold">127</span>
@@ -93,7 +219,7 @@ export default function Home() {
           
             <div className="flex items-center gap-4">
               {/* Trust Badge - Richieste elaborate - Desktop only */}
-              <div className="hidden md:inline-flex items-center gap-2 px-3 lg:px-4 py-1.5 lg:py-2 bg-white/80 backdrop-blur-sm rounded-full border border-blue-100 shadow-sm">
+              <div className="hidden md:inline-flex items-center gap-2 px-3 lg:px-4 py-1.5 lg:py-2 bg-white rounded-full border border-blue-100 shadow-sm">
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                 <span className="text-xs lg:text-sm font-medium text-slate-700">
                   Richieste elaborate oggi: <span className="text-blue-600 font-bold">127</span>
@@ -105,30 +231,26 @@ export default function Home() {
               href="https://www.organismo-am.it/b/0/06197620963/F311BEF5-24B7-4A32-AB79-567598386DBC/g.html"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden md:flex flex-col gap-1 bg-white/80 backdrop-blur-sm px-4 py-2.5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105 group"
+              className="hidden md:flex flex-col gap-1 bg-white px-4 py-2.5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow duration-300 group"
             >
               <div className="flex items-center gap-3">
                 <div className="flex flex-col items-end">
                   <span className="text-xs text-slate-500 leading-tight">Iscritti al registro</span>
                   <span className="text-sm font-bold text-slate-900 leading-tight">OAM M30</span>
                 </div>
-                <div className="relative">
-                  <div className="absolute inset-0 bg-blue-500/20 rounded-lg blur group-hover:blur-md transition-all"></div>
-                  <Image
-                    src="https://www.organismo-am.it/b/0/c3f18c274847902265f07537ce366a8eJO5NMdSW1LRcd_pl_8_eq_/1.png"
-                    alt="Organismo Agenti e Mediatori"
-                    width={44}
-                    height={44}
-                    draggable={false}
-                    onContextMenu={(e) => e.preventDefault()}
-                    className="relative w-11 h-11 object-contain select-none"
-                    style={{ userSelect: 'none', WebkitUserSelect: 'none', MozUserSelect: 'none' }}
-                  />
-                </div>
+                <Image
+                  src="https://www.organismo-am.it/b/0/c3f18c274847902265f07537ce366a8eJO5NMdSW1LRcd_pl_8_eq_/1.png"
+                  alt="Organismo Agenti e Mediatori"
+                  width={44}
+                  height={44}
+                  quality={60}
+                  loading="lazy"
+                  className="w-11 h-11 object-contain"
+                />
               </div>
-              <div className="flex items-center justify-center gap-1.5 text-xs text-blue-600 font-medium group-hover:gap-2 transition-all">
+              <div className="flex items-center justify-center gap-1.5 text-xs text-blue-600 font-medium">
                 <span>Verifica in tempo reale</span>
-                <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
               </div>
@@ -144,7 +266,7 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             
             {/* Left: Content */}
-            <div className="space-y-8 animate-in fade-in slide-in-from-left duration-700">
+            <div className="space-y-8">
               
               {/* Main Headline */}
               <div className="space-y-4">
@@ -166,57 +288,19 @@ export default function Home() {
 
               {/* Benefits */}
               <div className="grid sm:grid-cols-2 gap-4">
-                <div className="flex items-start gap-3 p-4 bg-white/60 backdrop-blur-sm rounded-2xl border border-slate-100 hover:border-blue-200 transition-all duration-300 hover:shadow-md">
-                  <div className="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
-                    <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-slate-900">Erogazione rapida</h3>
-                    <p className="text-sm text-slate-600">In soli 48 ore operative</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start gap-3 p-4 bg-white/60 backdrop-blur-sm rounded-2xl border border-slate-100 hover:border-blue-200 transition-all duration-300 hover:shadow-md">
-                  <div className="flex-shrink-0 w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
-                    <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-slate-900">100% sicuro</h3>
-                    <p className="text-sm text-slate-600">Certificato e garantito</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start gap-3 p-4 bg-white/60 backdrop-blur-sm rounded-2xl border border-slate-100 hover:border-blue-200 transition-all duration-300 hover:shadow-md">
-                  <div className="flex-shrink-0 w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center">
-                    <svg className="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-slate-900">Senza cambio banca</h3>
-                    <p className="text-sm text-slate-600">Mantieni il tuo conto</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start gap-3 p-4 bg-white/60 backdrop-blur-sm rounded-2xl border border-slate-100 hover:border-blue-200 transition-all duration-300 hover:shadow-md">
-                  <div className="flex-shrink-0 w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center">
-                    <svg className="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-slate-900">Nessun vincolo</h3>
-                    <p className="text-sm text-slate-600">Flessibilità totale</p>
-                  </div>
-                </div>
+                {BENEFITS_DATA.map((benefit, idx) => (
+                  <BenefitCard
+                    key={idx}
+                    icon={benefit.icon}
+                    color={benefit.color}
+                    title={benefit.title}
+                    description={benefit.description}
+                  />
+                ))}
               </div>
 
               {/* Google Reviews Social Proof */}
-              <div className="inline-flex items-center gap-4 pt-4 bg-white/60 backdrop-blur-sm px-5 py-3.5 rounded-xl border border-slate-200 shadow-sm">
+              <div className="inline-flex items-center gap-4 pt-4 bg-white px-5 py-3.5 rounded-xl border border-slate-200 shadow-sm">
                 <div className="flex items-center gap-3">
                   <svg className="w-8 h-8" viewBox="0 0 48 48" fill="none">
                     <path d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z" fill="#FFC107"/>
@@ -226,7 +310,7 @@ export default function Home() {
                   </svg>
                   <div>
                     <div className="flex items-center gap-1 mb-0.5">
-                      {[1, 2, 3, 4, 5].map((i) => (
+                      {STAR_RATINGS.map((i) => (
                         <svg key={i} className="w-4 h-4 text-amber-400 fill-current" viewBox="0 0 20 20">
                           <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
                         </svg>
@@ -244,208 +328,7 @@ export default function Home() {
             </div>
 
             {/* Right: Form Card */}
-            <div className="relative animate-in fade-in slide-in-from-right duration-700 delay-150">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-3xl blur-xl opacity-20 animate-pulse"></div>
-              <Card className="relative bg-white/95 backdrop-blur-sm shadow-2xl border-0 overflow-hidden">
-                <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500"></div>
-                
-                <CardHeader className="space-y-3 pb-6">
-                  {isLoading ? (
-                    <div className="text-center py-12">
-                      <div className="relative w-20 h-20 mx-auto mb-6">
-                        {/* Outer spinning ring */}
-                        <div className="absolute inset-0 border-4 border-blue-200 rounded-full"></div>
-                        <div className="absolute inset-0 border-4 border-transparent border-t-blue-600 rounded-full animate-spin"></div>
-                        {/* Inner spinning ring */}
-                        <div className="absolute inset-2 border-4 border-indigo-200 rounded-full"></div>
-                        <div className="absolute inset-2 border-4 border-transparent border-t-indigo-600 rounded-full animate-spin" style={{ animationDirection: 'reverse', animationDuration: '1s' }}></div>
-                        {/* Center dot */}
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="w-3 h-3 bg-blue-600 rounded-full animate-pulse"></div>
-                        </div>
-                      </div>
-                      <CardTitle className="text-2xl font-bold text-slate-900 mb-2">Caricamento...</CardTitle>
-                      <p className="text-slate-600">Stiamo elaborando la tua richiesta</p>
-                    </div>
-                  ) : showAmountSelection ? (
-                    <>
-                      <div className="text-center">
-                        <CardTitle className="text-2xl lg:text-3xl font-bold text-slate-900 mb-2">
-                          Quanto denaro vuoi prendere in prestito?
-                        </CardTitle>
-                        <p className="text-slate-600">Scegli l'importo desiderato</p>
-                      </div>
-                    </>
-                  ) : isSubmitted ? (
-                    <div className="text-center py-8">
-                      <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                      </div>
-                      <CardTitle className="text-2xl font-bold text-slate-900">Richiesta inviata!</CardTitle>
-                      <p className="text-slate-600 mt-2">Ti contatteremo entro 2 ore</p>
-                    </div>
-                  ) : (
-                    <>
-                      <div className="inline-flex items-center gap-2 text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full w-fit">
-                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
-                        Offerta limitata
-                      </div>
-                      <CardTitle className="text-3xl font-bold text-slate-900">
-                        Richiedi ora
-                      </CardTitle>
-                      <p className="text-slate-600">
-                        Compila il form e ricevi una risposta in <span className="font-bold text-blue-600">meno di 2 ore</span>
-                      </p>
-                    </>
-                  )}
-                </CardHeader>
-
-                {showAmountSelection && (
-                  <CardContent className="pt-0 space-y-6">
-                    {/* Amount Display */}
-                    <div className="text-center py-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-200">
-                      <div className="text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 mb-2">
-                        {loanAmount.toLocaleString('it-IT')} €
-                      </div>
-                      <div className="text-sm text-slate-600 font-medium">
-                        Importo selezionato
-                      </div>
-                    </div>
-
-                    {/* Slider */}
-                    <div className="space-y-4">
-                      <input
-                        type="range"
-                        min="1000"
-                        max="75000"
-                        step="1000"
-                        value={loanAmount}
-                        onChange={(e) => setLoanAmount(Number(e.target.value))}
-                        className="w-full h-3 bg-gradient-to-r from-blue-200 via-indigo-200 to-blue-200 rounded-lg appearance-none cursor-pointer slider"
-                        style={{
-                          background: `linear-gradient(to right, rgb(59, 130, 246) 0%, rgb(59, 130, 246) ${((loanAmount - 1000) / (75000 - 1000)) * 100}%, rgb(226, 232, 240) ${((loanAmount - 1000) / (75000 - 1000)) * 100}%, rgb(226, 232, 240) 100%)`
-                        }}
-                      />
-                      
-                      {/* Min/Max labels */}
-                      <div className="flex justify-between text-sm text-slate-500 font-medium">
-                        <span>1.000 €</span>
-                        <span>75.000 €</span>
-                      </div>
-                    </div>
-
-                    {/* Continue Button */}
-                    <Button 
-                      onClick={() => {
-                        setIsSubmitted(true);
-                        setShowAmountSelection(false);
-                      }}
-                      className="w-full h-14 text-lg font-bold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
-                    >
-                      Continua
-                      <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                      </svg>
-                    </Button>
-                  </CardContent>
-                )}
-
-                {!isSubmitted && !isLoading && !showAmountSelection && (
-                  <CardContent className="pt-0">
-                    <Form {...form}>
-                      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-                        <FormField
-                          control={form.control}
-                          name="nome"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel className="text-slate-700 font-medium">Nome</FormLabel>
-                              <FormControl>
-                                <Input 
-                                  placeholder="Mario" 
-                                  {...field}
-                                  className="h-12 border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="cognome"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel className="text-slate-700 font-medium">Cognome</FormLabel>
-                              <FormControl>
-                                <Input 
-                                  placeholder="Rossi" 
-                                  {...field}
-                                  className="h-12 border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="mail"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel className="text-slate-700 font-medium">Email</FormLabel>
-                              <FormControl>
-                                <Input 
-                                  type="email" 
-                                  placeholder="mario.rossi@esempio.it" 
-                                  {...field}
-                                  className="h-12 border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="telefono"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel className="text-slate-700 font-medium">Telefono</FormLabel>
-                              <FormControl>
-                                <Input 
-                                  type="tel" 
-                                  placeholder="+39 333 123 4567" 
-                                  {...field}
-                                  className="h-12 border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <Button 
-                          type="submit" 
-                          className="w-full h-14 text-lg font-bold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
-                        >
-                          Richiedi informazioni gratuite
-                          <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                          </svg>
-                        </Button>
-                        <p className="text-xs text-center text-slate-500 pt-2">
-                          🔒 I tuoi dati sono protetti e non verranno condivisi con terzi
-                        </p>
-                      </form>
-                    </Form>
-                  </CardContent>
-                )}
-              </Card>
-            </div>
+            <FormSection />
           </div>
         </div>
       </section>
@@ -531,7 +414,7 @@ export default function Home() {
       </section>
 
       {/* How It Works Section */}
-      <section className="relative z-10 px-6 lg:px-12 py-20 bg-white/50 backdrop-blur-sm">
+      <section className="relative z-10 px-6 lg:px-12 py-20 bg-white/50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
@@ -544,26 +427,24 @@ export default function Home() {
 
           {/* Trust Image */}
           <div className="max-w-3xl mx-auto">
-            <div className="relative">
-              <Image
-                src="https://creditplan.it/wp-content/uploads/2025/11/Progetto-senza-titolo-3.png"
-                alt="Creditplan"
-                width={1200}
-                height={600}
-                quality={95}
-                draggable={false}
-                onContextMenu={(e) => e.preventDefault()}
-                className="w-full h-auto object-cover select-none"
-                style={{ userSelect: 'none', WebkitUserSelect: 'none', MozUserSelect: 'none' }}
-              />
-            </div>
+            <Image
+              src="https://creditplan.it/wp-content/uploads/2025/11/Progetto-senza-titolo-3.png"
+              alt="Creditplan"
+              width={1200}
+              height={600}
+              quality={60}
+              loading="lazy"
+              placeholder="blur"
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+              className="w-full h-auto object-cover rounded-xl"
+            />
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
             {/* Step 1 */}
             <div className="relative group">
-              <div className="absolute -inset-4 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl opacity-0 group-hover:opacity-10 blur-xl transition-all duration-300"></div>
-              <div className="relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-100">
+              <div className="relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-slate-100">
                 <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
                   <span className="text-2xl font-bold text-white">1</span>
                 </div>
@@ -576,12 +457,11 @@ export default function Home() {
 
             {/* Step 2 */}
             <div className="relative group">
-              <div className="absolute -inset-4 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl opacity-0 group-hover:opacity-10 blur-xl transition-all duration-300"></div>
-              <div className="relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-100">
+              <div className="relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-slate-100">
                 <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
                   <span className="text-2xl font-bold text-white">2</span>
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-3">Ricevi la chiamata</h3>
+                <h3 className="text-2xl font-bold text-slate-900">Ricevi la chiamata</h3>
                 <p className="text-slate-600 leading-relaxed">
                   Un nostro consulente esperto ti contatterà entro 2 ore per discutere la tua situazione.
                 </p>
@@ -590,8 +470,7 @@ export default function Home() {
 
             {/* Step 3 */}
             <div className="relative group">
-              <div className="absolute -inset-4 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl opacity-0 group-hover:opacity-10 blur-xl transition-all duration-300"></div>
-              <div className="relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-100">
+              <div className="relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-slate-100">
                 <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
                   <span className="text-2xl font-bold text-white">3</span>
                 </div>
@@ -618,6 +497,11 @@ export default function Home() {
                   alt="Famiglia felice grazie a Creditplan"
                   width={800}
                   height={600}
+                  quality={60}
+                  loading="lazy"
+                  placeholder="blur"
+                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 800px"
                   draggable={false}
                   onContextMenu={(e) => e.preventDefault()}
                   className="w-full h-auto object-cover select-none"
@@ -645,10 +529,7 @@ export default function Home() {
                     Unisciti a migliaia di clienti soddisfatti. Il tuo finanziamento è a portata di clic.
                   </p>
                   <Button 
-                    onClick={() => {
-                      const formElement = document.querySelector('form');
-                      formElement?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }}
+                    onClick={scrollToForm}
                     className="bg-white text-blue-600 hover:bg-blue-50 h-14 px-8 text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
                   >
                     Richiedi subito
@@ -688,91 +569,14 @@ export default function Home() {
           </div>
 
           <div className="space-y-4">
-            {[
-              {
-                question: "Cos'è la Cessione del Quinto?",
-                answer: "La Cessione del Quinto è un prestito personale che ti permette di ottenere fino a 75.000€ senza dover cambiare banca. Il rimborso avviene direttamente dalla busta paga, con trattenute automatiche pari a massimo un quinto dello stipendio netto."
-              },
-              {
-                question: "Quali sono i costi e le commissioni associate?",
-                answer: "Con Creditplan, l'istruttoria è completamente gratuita e non ci sono costi nascosti. Ti garantiamo massima trasparenza su tutti i costi del finanziamento fin dall'inizio, senza sorprese."
-              },
-              {
-                question: "Quanto tempo serve per ottenere il prestito?",
-                answer: "Dopo l'approvazione preliminare in sole 24 ore lavorative, il denaro viene erogato sul tuo conto corrente in massimo 48 ore operative. Il processo è completamente digitale e veloce."
-              },
-              {
-                question: "Quali requisiti devo avere per richiedere la Cessione del Quinto?",
-                answer: "I requisiti principali sono: essere dipendente pubblico o privato con contratto a tempo indeterminato, avere un'età minima di 18 anni e massima che permetta di estinguere il prestito prima del pensionamento, e avere un reddito mensile sufficiente."
-              },
-              {
-                question: "Esiste un limite massimo di età per la Cessione del Quinto?",
-                answer: "Non esiste un limite di età fisso, ma è necessario che tu possa estinguere il prestito prima di raggiungere l'età pensionabile. Il requisito principale è che il contratto di lavoro copra l'intera durata del prestito."
-              },
-              {
-                question: "Cosa succede se non raggiungo i requisiti per rinnovare una Cessione del Quinto già in corso?",
-                answer: "Se non soddisfi più i requisiti per il rinnovo, potrai comunque continuare a estinguere il prestito in corso secondo le condizioni già stabilite. Ti consigliamo di contattarci per valutare insieme le migliori opzioni disponibili."
-              },
-              {
-                question: "Perché dovrei scegliere Creditplan?",
-                answer: "Creditplan offre un servizio rapido, trasparente e completamente digitale. Con oltre 2.000 famiglie soddisfatte, garantiamo approvazione in 24 ore, erogazione in 48 ore, istruttoria gratuita e consulenza professionale in ogni fase del processo."
-              },
-              {
-                question: "Posso richiedere il prestito se sono stato segnalato come cattivo pagatore?",
-                answer: "Ogni caso viene valutato singolarmente. Anche se sei stato segnalato in CRIF o altri registri, possiamo aiutarti a trovare una soluzione. Contattaci per una consulenza gratuita e senza impegno."
-              },
-              {
-                question: "È possibile estinguere anticipatamente la Cessione del Quinto?",
-                answer: "Sì, è possibile estinguere anticipatamente il prestito. Ti consigliamo di contattarci per conoscere le condizioni specifiche e le eventuali penali di estinzione anticipata previste dal tuo contratto."
-              },
-              {
-                question: "Quanto costa la consulenza iniziale con Creditplan?",
-                answer: "La consulenza iniziale con Creditplan è completamente gratuita e senza impegno. I nostri esperti ti guideranno nella valutazione della tua situazione e ti aiuteranno a trovare la soluzione migliore per le tue esigenze."
-              }
-            ].map((faq, index) => (
-              <div
+            {FAQ_ITEMS.map((faq, index) => (
+              <FAQItem
                 key={index}
-                className="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden"
-              >
-                <button
-                  onClick={() => setOpenFaqIndex(openFaqIndex === index ? null : index)}
-                  className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 group"
-                >
-                  <h3 className="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors pr-8">
-                    {faq.question}
-                  </h3>
-                  <div className="flex-shrink-0">
-                    <svg
-                      className={`w-6 h-6 text-blue-600 transition-transform duration-300 ${
-                        openFaqIndex === index ? 'rotate-180' : ''
-                      }`}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
-                  </div>
-                </button>
-                <div
-                  className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                    openFaqIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-                  }`}
-                >
-                  <div className="px-6 pb-5">
-                    <div className="pt-2 border-t border-slate-100">
-                      <p className="text-slate-600 leading-relaxed pt-4">
-                        {faq.answer}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                faq={faq}
+                index={index}
+                isOpen={openFaqIndex === index}
+                onToggle={() => handleFaqToggle(index)}
+              />
             ))}
           </div>
         </div>
@@ -788,7 +592,8 @@ export default function Home() {
                 alt="Creditplan logo"
                 width={280}
                 height={96}
-                quality={95}
+                quality={60}
+                loading="lazy"
                 draggable={false}
                 onContextMenu={(e) => e.preventDefault()}
                 className="w-auto h-8 select-none"

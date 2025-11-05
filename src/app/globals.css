@@ -152,7 +152,6 @@
       #f8fafc 100%
     );
     background-size: 400% 400%;
-    animation: gradientShift 20s ease infinite;
   }
   
   /* Mesh gradient overlay */
@@ -170,7 +169,17 @@
       radial-gradient(at 100% 100%, rgba(147, 197, 253, 0.1) 0px, transparent 50%),
       radial-gradient(at 0% 100%, rgba(96, 165, 250, 0.08) 0px, transparent 50%),
       radial-gradient(at 50% 50%, rgba(191, 219, 254, 0.05) 0px, transparent 50%);
-    animation: meshMove 25s ease infinite;
+  }
+  
+  /* Enable animations only on desktop for better mobile performance */
+  @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+    body::before {
+      animation: gradientShift 20s ease infinite;
+    }
+    
+    body::after {
+      animation: meshMove 25s ease infinite;
+    }
   }
 }
 
@@ -186,62 +195,66 @@
 @keyframes meshMove {
   0%, 100% {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) translateZ(0);
+    will-change: transform, opacity;
   }
   50% {
     opacity: 0.8;
-    transform: scale(1.1);
+    transform: scale(1.1) translateZ(0);
   }
 }
 
-/* Floating orb animations */
+/* Floating orb animations - GPU accelerated */
 @keyframes floatSlow {
   0%, 100% {
-    transform: translate(0, 0) scale(1);
+    transform: translate3d(0, 0, 0) scale(1);
   }
   33% {
-    transform: translate(30px, -30px) scale(1.1);
+    transform: translate3d(30px, -30px, 0) scale(1.1);
   }
   66% {
-    transform: translate(-20px, 20px) scale(0.9);
+    transform: translate3d(-20px, 20px, 0) scale(0.9);
   }
 }
 
 @keyframes floatMedium {
   0%, 100% {
-    transform: translate(0, 0) rotate(0deg);
+    transform: translate3d(0, 0, 0) rotate(0deg);
   }
   50% {
-    transform: translate(-40px, 40px) rotate(180deg);
+    transform: translate3d(-40px, 40px, 0) rotate(180deg);
   }
 }
 
 @keyframes floatFast {
   0%, 100% {
-    transform: translate(0, 0) scale(1);
+    transform: translate3d(0, 0, 0) scale(1);
   }
   25% {
-    transform: translate(25px, 25px) scale(1.05);
+    transform: translate3d(25px, 25px, 0) scale(1.05);
   }
   50% {
-    transform: translate(-30px, 10px) scale(0.95);
+    transform: translate3d(-30px, 10px, 0) scale(0.95);
   }
   75% {
-    transform: translate(15px, -20px) scale(1.1);
+    transform: translate3d(15px, -20px, 0) scale(1.1);
   }
 }
 
 @layer utilities {
   .animate-float-slow {
     animation: floatSlow 20s ease-in-out infinite;
+    will-change: transform;
   }
   
   .animate-float-medium {
     animation: floatMedium 15s ease-in-out infinite;
+    will-change: transform;
   }
   
   .animate-float-fast {
     animation: floatFast 12s ease-in-out infinite;
+    will-change: transform;
   }
 }
 
@@ -270,17 +283,18 @@ input[type="range"].slider::-webkit-slider-thumb {
   border-radius: 50%;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4), 0 0 0 4px rgba(59, 130, 246, 0.1);
-  transition: all 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   margin-top: -8px;
+  will-change: transform;
 }
 
 input[type="range"].slider::-webkit-slider-thumb:hover {
-  transform: scale(1.15);
+  transform: scale(1.15) translateZ(0);
   box-shadow: 0 6px 16px rgba(59, 130, 246, 0.5), 0 0 0 6px rgba(59, 130, 246, 0.15);
 }
 
 input[type="range"].slider::-webkit-slider-thumb:active {
-  transform: scale(1.1);
+  transform: scale(1.1) translateZ(0);
 }
 
 /* Firefox */
@@ -292,17 +306,18 @@ input[type="range"].slider::-moz-range-thumb {
   border-radius: 50%;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4), 0 0 0 4px rgba(59, 130, 246, 0.1);
-  transition: all 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   margin-top: -8px;
+  will-change: transform;
 }
 
 input[type="range"].slider::-moz-range-thumb:hover {
-  transform: scale(1.15);
+  transform: scale(1.15) translateZ(0);
   box-shadow: 0 6px 16px rgba(59, 130, 246, 0.5), 0 0 0 6px rgba(59, 130, 246, 0.15);
 }
 
 input[type="range"].slider::-moz-range-thumb:active {
-  transform: scale(1.1);
+  transform: scale(1.1) translateZ(0);
 }
 
 /* Track */
