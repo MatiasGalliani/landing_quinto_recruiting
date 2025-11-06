@@ -57,6 +57,63 @@ const FAQ_ITEMS = [
 
 const STAR_RATINGS = [1, 2, 3, 4, 5] as const;
 
+const GOOGLE_REVIEWS = [
+  {
+    author: "Fede",
+    rating: 5,
+    timeAgo: "2 anni fa",
+    text: "Dei professionisti nel settore. Mi sono affidato a loro per l'acquisto di due case, affidabili, seri e professionali. Anche nel caso di pratiche un po complicate sono sempre stati in grado di trovare soluzioni adeguate….spero non ci sarà il bisogno di una terza, ma nel caso tornerò sicuramente. Consigliatissimi."
+  },
+  {
+    author: "Luca Stucchi",
+    rating: 5,
+    timeAgo: "2 anni fa",
+    text: "Ottima professionalità!"
+  },
+  {
+    author: "Stefania Salmoiraghi",
+    rating: 5,
+    timeAgo: "2 anni fa",
+    text: "Cordiali e attenti alle esigenze del cliente. Molto disponibili e preparati."
+  },
+  {
+    author: "Federico Mantovani",
+    rating: 5,
+    timeAgo: "2 anni fa",
+    text: "Servizio impeccabile, affrontano ogni situazione con serenità. Senza il loro intervento non sarei mai riuscito ad arrivare al rogito del nuovo appartamento."
+  },
+  {
+    author: "Fabiana Pinardi",
+    rating: 5,
+    timeAgo: "2 anni fa",
+    text: "Dopo diverse porte in faccia e svariate ricerche su internet, ci siamo imbattuti in Creditplan.... E come si suol dire, mai scelta fu più azzeccata!!! Avevamo bisogno di una rinegoziazione mutuo più consolidamento debiti, e dove tutti ci avevano detto che era praticamente impossibile, lo staff di Creditplan ha risolto tutti i nostri problemi. NICHOLAS, ci ha seguito in modo impeccabile!!!! Cordiale, disponibile, preparato, sempre attento ad ascoltare ogni nostra esigenza e... anche quando si è presentato qualche piccolo ostacolo, la sua bravura e professionalità ci hanno portato a raggiungere il traguardo prestabilito. Consigliatissimo a chiunque abbia bisogno di un supporto nell'apertura di un mutuo, di una surroga o quant'altro. Grazie di cuore a Nicholas e a Creditplan per il prezioso aiuto!"
+  },
+  {
+    author: "Filippo Malusardi",
+    rating: 5,
+    timeAgo: "2 anni fa",
+    text: "Azienda ottima e professionale, specificatamente nella persona Andrea Daví , molto cortese e sempre disponibile , con conseguente raggiungimento dell'obbiettivo preposto . Grazie di tutto"
+  },
+  {
+    author: "Anna Gatti",
+    rating: 5,
+    timeAgo: "2 anni fa",
+    text: "Andrea Davì ci ha seguito per l'acquisto della nostra prima casa: senza di lui probabilmente non ce l'avremmo fatta. Disponibile, gentile, preparato, preciso e simpatico: è stata una delle scelte migliori che abbiamo fatto! Grazie ancora"
+  },
+  {
+    author: "Maria Grazia Piva",
+    rating: 5,
+    timeAgo: "2 anni fa",
+    text: "Andrea Davì ci ha seguite in un'operazione di richiesta mutuo per l'acquisto della nostra prima casa, con pazienza precisione ed estrema affidabilità. Mi era stato consigliato da amici e raccomanderei vivamente il suo supporto perché è una persona tanto competente quanto meritevole di fiducia."
+  },
+  {
+    author: "Silvia M.",
+    rating: 5,
+    timeAgo: "2 anni fa",
+    text: "Professionali e molto disponibili mi hanno aiutato a gestire le pratiche relative all'acquisto della prima casa e del mutuo dissipando ogni mio eventuale dubbio. Marco Albertin in particolare mi ha seguito con molta cura e disponibilità, non solo dal punto di vista professionale ma anche umano. Non esiterei a consigliare la loro consulenza!"
+  }
+] as const;
+
 const BENEFITS_DATA = [
   {
     icon: "M13 10V3L4 14h7v7l9-11h-7z",
@@ -78,6 +135,66 @@ const BENEFITS_DATA = [
     title: "Tasso fisso",
     description: "Rata fissa e importo costante",
     detailedContent: "Con la cessione del quinto, il tasso di interesse è fisso per tutta la durata del finanziamento. Questo significa che la tua rata mensile rimane sempre la stessa, senza sorprese o variazioni, permettendoti di pianificare le tue spese con totale tranquillità."
+  }
+] as const;
+
+const WHY_CHOOSE_BENEFITS_DATA = [
+  {
+    icon: "M13 10V3L4 14h7v7l9-11h-7z",
+    color: "blue",
+    title: "Velocità garantita",
+    description: "Approvazione preliminare in sole 24 ore lavorative",
+    detailedContent: "Con Creditplan, ricevi l'approvazione preliminare del tuo finanziamento in sole 24 ore lavorative. Il nostro team di consulenti esperti lavora in modo efficiente per valutare rapidamente la tua richiesta, garantendoti una risposta tempestiva e trasparente. Grazie alle nostre convenzioni con i principali istituti bancari, possiamo accelerare ogni fase del processo.",
+    gradientFrom: "from-blue-500",
+    gradientTo: "to-blue-600",
+    borderColor: "border-blue-200",
+    bgColor: "bg-blue-500/5",
+    textColor: "text-blue-600"
+  },
+  {
+    icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
+    color: "green",
+    title: "Tranquillità totale",
+    description: "Rata fissa e importo costante per tutta la durata",
+    detailedContent: "Con la cessione del quinto, la tua rata mensile rimane sempre la stessa per tutta la durata del finanziamento. Non ci saranno sorprese o variazioni inaspettate: l'importo della rata è fisso e garantito, permettendoti di pianificare le tue spese con totale tranquillità e sicurezza finanziaria.",
+    gradientFrom: "from-emerald-500",
+    gradientTo: "to-emerald-600",
+    borderColor: "border-emerald-200",
+    bgColor: "bg-emerald-500/5",
+    textColor: "text-emerald-600"
+  },
+  {
+    icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
+    color: "amber",
+    title: "Massima trasparenza",
+    description: "Nessun costo nascosto, istruttoria gratuita e comunicazioni incluse",
+    detailedContent: "Con Creditplan, la trasparenza è al primo posto. Non ci sono costi nascosti o sorprese: l'istruttoria è completamente gratuita e tutte le comunicazioni sono incluse. Ti forniamo tutte le informazioni necessarie in modo chiaro e comprensibile, senza termini ambigui o clausole nascoste. La tua fiducia è la nostra priorità.",
+    gradientFrom: "from-amber-500",
+    gradientTo: "to-amber-600",
+    borderColor: "border-amber-200",
+    bgColor: "bg-amber-500/5",
+    textColor: "text-amber-600"
+  }
+] as const;
+
+const HOW_IT_WORKS_STEPS = [
+  {
+    step: 1,
+    title: "Compila il form",
+    description: "Inserisci i tuoi dati in meno di 2 minuti. Nessun documento richiesto in questa fase.",
+    detailedContent: "Il primo passo è semplicissimo: compila il nostro form online con i tuoi dati personali e lavorativi. Non serve alcun documento in questa fase iniziale - bastano pochi minuti per inserire le informazioni necessarie. Il form è completamente sicuro e i tuoi dati sono protetti. Una volta inviato, la tua richiesta viene immediatamente presa in carico dal nostro team."
+  },
+  {
+    step: 2,
+    title: "Ricevi la chiamata",
+    description: "Un nostro consulente esperto ti contatterà entro 2 ore per discutere la tua situazione.",
+    detailedContent: "Entro 2 ore dall'invio del form, un nostro consulente esperto ti contatterà telefonicamente. Durante questa chiamata gratuita e senza impegno, avrai l'opportunità di discutere la tua situazione finanziaria, chiarire eventuali dubbi e ricevere una consulenza personalizzata. Il nostro consulente ti guiderà attraverso tutte le opzioni disponibili e ti aiuterà a trovare la soluzione migliore per le tue esigenze."
+  },
+  {
+    step: 3,
+    title: "Ricevi il denaro",
+    description: "Dopo l'approvazione, ricevi il tuo finanziamento sul conto in 48 ore.",
+    detailedContent: "Dopo l'approvazione della tua richiesta, il finanziamento viene erogato direttamente sul tuo conto corrente in sole 48 ore operative. Non ci sono ritardi o complicazioni: una volta approvato, il denaro arriva velocemente e in modo sicuro. La rata mensile verrà trattenuta direttamente dalla tua busta paga o pensione, senza dover ricordare scadenze o effettuare bonifici manuali."
   }
 ] as const;
 
@@ -284,9 +401,252 @@ const BenefitModal = memo(({
 
 BenefitModal.displayName = 'BenefitModal';
 
+// Why Choose Benefit Modal Component
+const WhyChooseModal = memo(({ 
+  isOpen, 
+  onClose, 
+  benefit 
+}: { 
+  isOpen: boolean; 
+  onClose: () => void; 
+  benefit: typeof WHY_CHOOSE_BENEFITS_DATA[number] | null;
+}) => {
+  // Handle ESC key to close modal
+  useEffect(() => {
+    if (!isOpen) return;
+    
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isOpen, onClose]);
+
+  if (!isOpen || !benefit) return null;
+
+  return (
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+      onClick={onClose}
+      style={{
+        animation: 'fadeIn 0.3s ease-out'
+      }}
+    >
+      <div 
+        className={`relative bg-white rounded-3xl shadow-2xl max-w-lg w-full p-8 border-2 ${benefit.borderColor}`}
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          animation: 'slideUpAndScale 0.3s ease-out'
+        }}
+      >
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-100 transition-colors"
+          aria-label="Chiudi"
+        >
+          <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        {/* Content */}
+        <div className="flex flex-col items-center text-center">
+          <div className={`w-16 h-16 bg-gradient-to-br ${benefit.gradientFrom} ${benefit.gradientTo} rounded-2xl flex items-center justify-center mb-6 shadow-lg`}>
+            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={benefit.icon} />
+            </svg>
+          </div>
+          <h2 className="text-3xl font-bold text-slate-900 mb-4">{benefit.title}</h2>
+          <p className="text-lg text-slate-600 leading-relaxed">{benefit.detailedContent}</p>
+        </div>
+      </div>
+    </div>
+  );
+});
+
+WhyChooseModal.displayName = 'WhyChooseModal';
+
+// Google Reviews Modal Component
+const ReviewsModal = memo(({ 
+  isOpen, 
+  onClose 
+}: { 
+  isOpen: boolean; 
+  onClose: () => void;
+}) => {
+  // Handle ESC key to close modal
+  useEffect(() => {
+    if (!isOpen) return;
+    
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
+
+  return (
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm overflow-y-auto"
+      onClick={onClose}
+      style={{
+        animation: 'fadeIn 0.3s ease-out'
+      }}
+    >
+      <div 
+        className="relative bg-white rounded-3xl shadow-2xl max-w-4xl w-full p-8 border-2 border-blue-200 my-8"
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          animation: 'slideUpAndScale 0.3s ease-out'
+        }}
+      >
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-100 transition-colors z-10"
+          aria-label="Chiudi"
+        >
+          <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        {/* Header */}
+        <div className="flex items-center gap-4 mb-8 pb-6 border-b border-slate-200">
+          <div className="flex items-center gap-3">
+            <svg className="w-12 h-12" viewBox="0 0 48 48" fill="none">
+              <path d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z" fill="#FFC107"/>
+              <path d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z" fill="#FF3D00"/>
+              <path d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0124 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z" fill="#4CAF50"/>
+              <path d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 01-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" fill="#1976D2"/>
+            </svg>
+            <div>
+              <h2 className="text-3xl font-bold text-slate-900">ECCELLENTE</h2>
+              <div className="flex items-center gap-2 mt-1">
+                <div className="flex items-center gap-1">
+                  {STAR_RATINGS.map((i) => (
+                    <svg key={i} className="w-5 h-5 text-amber-400 fill-current" viewBox="0 0 20 20">
+                      <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                    </svg>
+                  ))}
+                </div>
+                <span className="text-lg font-semibold text-slate-900">4.9/5</span>
+                <span className="text-sm text-slate-600">• 98 recensioni su Google</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Reviews List */}
+        <div className="space-y-6 max-h-[60vh] overflow-y-auto pr-2">
+          {GOOGLE_REVIEWS.map((review, index) => (
+            <div key={index} className="bg-slate-50 rounded-xl p-6 border border-slate-200">
+              <div className="flex items-start justify-between mb-3">
+                <div>
+                  <h3 className="font-bold text-slate-900 mb-1">{review.author}</h3>
+                  <p className="text-xs text-slate-500">{review.timeAgo}</p>
+                </div>
+                <div className="flex items-center gap-1">
+                  {Array.from({ length: review.rating }).map((_, i) => (
+                    <svg key={i} className="w-4 h-4 text-amber-400 fill-current" viewBox="0 0 20 20">
+                      <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                    </svg>
+                  ))}
+                </div>
+              </div>
+              <p className="text-slate-700 leading-relaxed">{review.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+});
+
+ReviewsModal.displayName = 'ReviewsModal';
+
+// How It Works Step Modal Component
+const HowItWorksModal = memo(({ 
+  isOpen, 
+  onClose, 
+  step 
+}: { 
+  isOpen: boolean; 
+  onClose: () => void; 
+  step: typeof HOW_IT_WORKS_STEPS[number] | null;
+}) => {
+  // Handle ESC key to close modal
+  useEffect(() => {
+    if (!isOpen) return;
+    
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isOpen, onClose]);
+
+  if (!isOpen || !step) return null;
+
+  return (
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+      onClick={onClose}
+      style={{
+        animation: 'fadeIn 0.3s ease-out'
+      }}
+    >
+      <div 
+        className="relative bg-white rounded-3xl shadow-2xl max-w-lg w-full p-8 border-2 border-blue-200"
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          animation: 'slideUpAndScale 0.3s ease-out'
+        }}
+      >
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-100 transition-colors"
+          aria-label="Chiudi"
+        >
+          <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        {/* Content */}
+        <div className="flex flex-col items-center text-center">
+          <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+            <span className="text-3xl font-bold text-white">{step.step}</span>
+          </div>
+          <h2 className="text-3xl font-bold text-slate-900 mb-4">{step.title}</h2>
+          <p className="text-lg text-slate-600 leading-relaxed">{step.detailedContent}</p>
+        </div>
+      </div>
+    </div>
+  );
+});
+
+HowItWorksModal.displayName = 'HowItWorksModal';
+
 export default function Home() {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
   const [openBenefitIndex, setOpenBenefitIndex] = useState<number | null>(null);
+  const [openWhyChooseIndex, setOpenWhyChooseIndex] = useState<number | null>(null);
+  const [openReviewsModal, setOpenReviewsModal] = useState(false);
+  const [openHowItWorksIndex, setOpenHowItWorksIndex] = useState<number | null>(null);
 
   // Memoize scroll handler
   const scrollToForm = useCallback(() => {
@@ -314,7 +674,36 @@ export default function Home() {
     setOpenBenefitIndex(null);
   }, []);
 
+  // Memoize Why Choose modal handlers
+  const handleWhyChooseClick = useCallback((index: number) => {
+    setOpenWhyChooseIndex(index);
+  }, []);
+
+  const handleCloseWhyChooseModal = useCallback(() => {
+    setOpenWhyChooseIndex(null);
+  }, []);
+
+  // Memoize reviews modal handlers
+  const handleOpenReviewsModal = useCallback(() => {
+    setOpenReviewsModal(true);
+  }, []);
+
+  const handleCloseReviewsModal = useCallback(() => {
+    setOpenReviewsModal(false);
+  }, []);
+
+  // Memoize How It Works modal handlers
+  const handleHowItWorksClick = useCallback((index: number) => {
+    setOpenHowItWorksIndex(index);
+  }, []);
+
+  const handleCloseHowItWorksModal = useCallback(() => {
+    setOpenHowItWorksIndex(null);
+  }, []);
+
   const selectedBenefit = openBenefitIndex !== null ? BENEFITS_DATA[openBenefitIndex] : null;
+  const selectedWhyChooseBenefit = openWhyChooseIndex !== null ? WHY_CHOOSE_BENEFITS_DATA[openWhyChooseIndex] : null;
+  const selectedStep = openHowItWorksIndex !== null ? HOW_IT_WORKS_STEPS[openHowItWorksIndex] : null;
 
   return (
     <main className="min-h-screen relative overflow-hidden" itemScope itemType="https://schema.org/WebPage">
@@ -411,7 +800,10 @@ export default function Home() {
               </div>
 
               {/* Google Reviews Social Proof */}
-              <div className="inline-flex items-center gap-4 pt-4 bg-white px-5 py-3.5 rounded-xl border border-slate-200 shadow-sm">
+              <button
+                onClick={handleOpenReviewsModal}
+                className="inline-flex items-center gap-4 pt-4 bg-white px-5 py-3.5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 cursor-pointer text-left w-full"
+              >
                 <div className="flex items-center gap-3">
                   <svg className="w-8 h-8" viewBox="0 0 48 48" fill="none">
                     <path d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z" fill="#FFC107"/>
@@ -435,7 +827,7 @@ export default function Home() {
                     </p>
                   </div>
                 </div>
-              </div>
+              </button>
             </article>
 
             {/* Right: Form Card */}
@@ -457,53 +849,42 @@ export default function Home() {
           </header>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {/* Benefit 1 - Fast Approval */}
-            <div className="group relative bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 hover:border-blue-200">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-indigo-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
-              <div className="relative">
-                <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-5 shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform duration-300">
-                  <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
+            {WHY_CHOOSE_BENEFITS_DATA.map((benefit, idx) => (
+              <button
+                key={idx}
+                onClick={() => handleWhyChooseClick(idx)}
+                className={`group relative bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 ${
+                  benefit.color === 'blue' ? 'hover:border-blue-200' : 
+                  benefit.color === 'green' ? 'hover:border-emerald-200' : 
+                  'hover:border-amber-200'
+                } text-left w-full cursor-pointer`}
+              >
+                <div className={`absolute inset-0 bg-gradient-to-br ${benefit.bgColor} rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-300`}></div>
+                <div className="relative">
+                  <div className={`w-14 h-14 bg-gradient-to-br ${benefit.gradientFrom} ${benefit.gradientTo} rounded-2xl flex items-center justify-center mb-5 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                    <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={benefit.icon} />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-3">{benefit.title}</h3>
+                  <p className="text-slate-600 leading-relaxed">
+                    {benefit.description.includes('24 ore') ? (
+                      <>
+                        Approvazione preliminare in sole <span className={`font-bold ${benefit.textColor}`}>24 ore</span> lavorative
+                      </>
+                    ) : benefit.description.includes('Rata fissa') ? (
+                      <>
+                        <span className={`font-bold ${benefit.textColor}`}>Rata fissa</span> e importo costante per tutta la durata
+                      </>
+                    ) : (
+                      <>
+                        <span className={`font-bold ${benefit.textColor}`}>Nessun costo nascosto</span>, istruttoria gratuita e comunicazioni incluse
+                      </>
+                    )}
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Velocità garantita</h3>
-                <p className="text-slate-600 leading-relaxed">
-                  Approvazione preliminare in sole <span className="font-bold text-blue-600">24 ore</span> lavorative
-                </p>
-              </div>
-            </div>
-
-            {/* Benefit 2 - Predictability */}
-            <div className="group relative bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 hover:border-emerald-200">
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-green-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
-              <div className="relative">
-                <div className="w-14 h-14 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-5 shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform duration-300">
-                  <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Tranquillità totale</h3>
-                <p className="text-slate-600 leading-relaxed">
-                  <span className="font-bold text-emerald-600">Rata fissa</span> e importo costante per tutta la durata
-                </p>
-              </div>
-            </div>
-
-            {/* Benefit 4 - No Hidden Costs */}
-            <div className="group relative bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 hover:border-amber-200">
-              <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-orange-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
-              <div className="relative">
-                <div className="w-14 h-14 bg-gradient-to-br from-amber-500 to-amber-600 rounded-2xl flex items-center justify-center mb-5 shadow-lg shadow-amber-500/30 group-hover:scale-110 transition-transform duration-300">
-                  <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Massima trasparenza</h3>
-                <p className="text-slate-600 leading-relaxed">
-                  <span className="font-bold text-amber-600">Nessun costo nascosto</span>, istruttoria gratuita e comunicazioni incluse
-                </p>
-              </div>
-            </div>
+              </button>
+            ))}
           </div>
         </div>
       </section>
@@ -537,44 +918,26 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
-            {/* Step 1 */}
-            <div className="relative group" itemScope itemType="https://schema.org/HowToStep" itemProp="step">
-              <div className="relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-slate-100">
-                <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
-                  <span className="text-2xl font-bold text-white" itemProp="position">1</span>
+            {HOW_IT_WORKS_STEPS.map((step, idx) => (
+              <button
+                key={idx}
+                onClick={() => handleHowItWorksClick(idx)}
+                className="relative group text-left w-full" 
+                itemScope 
+                itemType="https://schema.org/HowToStep" 
+                itemProp="step"
+              >
+                <div className="relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-100 hover:border-blue-200 cursor-pointer">
+                  <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                    <span className="text-2xl font-bold text-white" itemProp="position">{step.step}</span>
+                  </div>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-3" itemProp="name">{step.title}</h3>
+                  <p className="text-slate-600 leading-relaxed" itemProp="text">
+                    {step.description}
+                  </p>
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-3" itemProp="name">Compila il form</h3>
-                <p className="text-slate-600 leading-relaxed" itemProp="text">
-                  Inserisci i tuoi dati in meno di 2 minuti. Nessun documento richiesto in questa fase.
-                </p>
-              </div>
-            </div>
-
-            {/* Step 2 */}
-            <div className="relative group" itemScope itemType="https://schema.org/HowToStep" itemProp="step">
-              <div className="relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-slate-100">
-                <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
-                  <span className="text-2xl font-bold text-white" itemProp="position">2</span>
-                </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-3" itemProp="name">Ricevi la chiamata</h3>
-                <p className="text-slate-600 leading-relaxed" itemProp="text">
-                  Un nostro consulente esperto ti contatterà entro 2 ore per discutere la tua situazione.
-                </p>
-              </div>
-            </div>
-
-            {/* Step 3 */}
-            <div className="relative group" itemScope itemType="https://schema.org/HowToStep" itemProp="step">
-              <div className="relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-slate-100">
-                <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
-                  <span className="text-2xl font-bold text-white" itemProp="position">3</span>
-                </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-3" itemProp="name">Ricevi il denaro</h3>
-                <p className="text-slate-600 leading-relaxed" itemProp="text">
-                  Dopo l'approvazione, ricevi il tuo finanziamento sul conto in 48 ore.
-                </p>
-              </div>
-            </div>
+              </button>
+            ))}
           </div>
         </div>
       </section>
@@ -875,6 +1238,26 @@ export default function Home() {
         isOpen={openBenefitIndex !== null}
         onClose={handleCloseBenefitModal}
         benefit={selectedBenefit}
+      />
+
+      {/* Why Choose Modal */}
+      <WhyChooseModal
+        isOpen={openWhyChooseIndex !== null}
+        onClose={handleCloseWhyChooseModal}
+        benefit={selectedWhyChooseBenefit}
+      />
+
+      {/* Reviews Modal */}
+      <ReviewsModal
+        isOpen={openReviewsModal}
+        onClose={handleCloseReviewsModal}
+      />
+
+      {/* How It Works Modal */}
+      <HowItWorksModal
+        isOpen={openHowItWorksIndex !== null}
+        onClose={handleCloseHowItWorksModal}
+        step={selectedStep}
       />
 
     </main>
