@@ -1015,6 +1015,7 @@ export default function Home() {
       </section>
 
       {/* Bank Partnerships Section */}
+      {false && (
       <section className="relative z-10 px-6 lg:px-12 py-20 bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/30" aria-labelledby="bank-partnerships-heading">
         <div className="max-w-7xl mx-auto">
           <header className="text-center mb-12">
@@ -1122,6 +1123,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
 
       {/* FAQ Section */}
       <section className="relative z-10 px-6 lg:px-12 py-24 overflow-hidden" aria-labelledby="faq-heading" itemScope itemType="https://schema.org/FAQPage">
@@ -1154,8 +1156,8 @@ export default function Home() {
           </div>
 
           {/* Bottom CTA */}
-          <div className="mt-16 text-center">
-            <div className="inline-flex flex-col items-center gap-4 bg-white/80 backdrop-blur-sm rounded-2xl border border-slate-200 shadow-lg p-8 lg:p-10">
+          <div className="mt-16 text-center px-4 sm:px-0">
+            <div className="flex flex-col items-center gap-4 bg-white/80 backdrop-blur-sm rounded-2xl border border-slate-200 shadow-lg p-8 lg:p-10 w-full max-w-lg mx-auto">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center shadow-lg">
                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
