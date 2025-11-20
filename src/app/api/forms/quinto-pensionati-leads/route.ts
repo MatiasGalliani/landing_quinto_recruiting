@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const EXTERNAL_API_BASE = 'http://localhost:3001';
+const EXTERNAL_API_BASE = 'https://accelera-crm-production.up.railway.app';
 
 export async function POST(request: NextRequest) {
   try {
@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Forward to external API
-    const response = await fetch(`${EXTERNAL_API_BASE}/api/forms/quinto-pensionati-leads`, {
+    const response = await fetch(`${EXTERNAL_API_BASE}/api/forms/quinto-v2`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
