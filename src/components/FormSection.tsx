@@ -116,7 +116,7 @@ export function FormSection() {
           userPosition: "PENSIONATO",
           submittedAt: new Date().toISOString(),
         };
-        endpoint = '/api/forms/quinto-pensionati-leads';
+        endpoint = '/api/forms/quinto-pensionati';
       } else {
         throw new Error('Invalid user position');
       }
