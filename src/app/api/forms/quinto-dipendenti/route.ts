@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Forward to external API
-    const response = await fetch(`${EXTERNAL_API_BASE}/api/forms/dipendente`, {
+    const response = await fetch(`${EXTERNAL_API_BASE}/api/forms/quinto-dipendenti`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

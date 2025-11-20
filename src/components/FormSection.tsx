@@ -96,7 +96,7 @@ export function FormSection() {
           userPosition: "DIPENDENTE",
           submittedAt: new Date().toISOString(),
         };
-        endpoint = '/api/forms/dipendente';
+        endpoint = '/api/forms/quinto-dipendenti';
       } else if (userPosition === "PENSIONATO") {
         // Combine personal info with pensionato data
         payload = {
