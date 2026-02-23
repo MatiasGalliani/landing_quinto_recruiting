@@ -774,7 +774,7 @@ export default function Home() {
               <header className="space-y-4">
                 <h1 className="text-5xl lg:text-7xl font-semibold lg:font-bold leading-[1.05] tracking-tight" itemProp="name">
                   <span className="block bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent">
-                    Diventa agente{' '}
+                    Diventa consulente{' '}
                     <span className="relative inline-block">
                       <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600 bg-clip-text text-transparent font-extrabold">
                         Creditplan
