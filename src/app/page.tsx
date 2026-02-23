@@ -14,44 +14,44 @@ const FormSection = dynamic(() => import('@/components/FormSection').then(mod =>
 // Extract static data outside component to prevent recreation
 const FAQ_ITEMS = [
   {
-    question: "Cos'è la Cessione del Quinto?",
-    answer: "La cessione del quinto è un prestito garantito con trattenuta diretta in busta paga o sulla pensione. Può essere richiesto senza dovere fornire motivazioni e l'importo massimo della rata non può eccedere il 20% dello stipendio netto mensile (un quinto)."
+    question: "Cosa fa un agente di cessione del quinto?",
+    answer: "L'agente di cessione del quinto supporta clienti (dipendenti e pensionati) nell'ottenere finanziamenti tramite trattenuta diretta sullo stipendio o sulla pensione. Si occupa di acquisire nuovi clienti, gestire le pratiche e collaborare con gli istituti bancari convenzionati."
   },
   {
-    question: "Quali sono i costi e le commissioni associate?",
-    answer: "Nessun costo o commissioni accessorie; l'importo richiesto viene erogato \"chiavi in mano\"."
+    question: "Devo essere già iscritto all'OAM per candidarmi?",
+    answer: "Sì, l'iscrizione al registro OAM (Organismo Agenti e Mediatori) è un requisito indispensabile per operare come intermediario creditizio in Italia. È necessario avere almeno 2 anni di iscrizione per collaborare con Creditplan."
   },
   {
-    question: "Quanto tempo serve per ottenere il prestito?",
-    answer: "Con Creditplan puoi ottenere la liquidità necessaria in pochi giorni grazie ai nostri partner bancari specializzati e al team qualificato."
+    question: "Che tipo di rapporto di collaborazione viene offerto?",
+    answer: "Collaboriamo con agenti in regime di collaborazione professionale con provvigioni competitive legate alle pratiche chiuse con successo. Hai la flessibilità di gestire il tuo tempo e il tuo portafoglio clienti in autonomia."
   },
   {
-    question: "Quali requisiti devo avere per richiedere la Cessione del Quinto?",
-    answer: "Puoi richiedere la Cessione del Quinto se sei un lavoratore dipendente (pubblico/statale o privato) con contratto a tempo indeterminato o un pensionato. Non è richiesto alcun garante."
+    question: "Quali prodotti posso collocare nella rete Creditplan?",
+    answer: "Come agente Creditplan avrai accesso all'intero portafoglio prodotti: cessione del quinto, delegazione di pagamento, mutui, prestiti personali e polizze assicurative a protezione del credito."
   },
   {
-    question: "Esiste un limite massimo di età per la Cessione del Quinto?",
-    answer: "Sì, i pensionati possono ottenere il prestito fino a 89 anni alla scadenza del finanziamento."
+    question: "Creditplan mi fornirà supporto e formazione?",
+    answer: "Sì! Il nostro team ti accompagna con formazione continua, supporto back-office dedicato, materiali di vendita e accesso alle nostre convenzioni con i primari istituti bancari del mercato."
   },
   {
-    question: "Cosa succede se non raggiungo i requisiti per rinnovare una Cessione del Quinto già in corso?",
-    answer: "In caso di mancato raggiungimento dei termini per il rinnovo, possiamo valutare insieme la Delegazione di Pagamento, una seconda trattenuta sullo stipendio che permette di ottenere ulteriore liquidità."
+    question: "Quanto posso guadagnare come agente Creditplan?",
+    answer: "Il guadagno dipende dal volume di pratiche chiuse. Le nostre provvigioni sono tra le più competitive del settore, e i migliori agenti della rete raggiungono ottime remunerazioni mensili grazie all'ampiezza del portafoglio prodotti."
   },
   {
-    question: "Perché dovrei scegliere Creditplan?",
-    answer: "Le nostre convenzioni bancarie con i primari partner sul mercato, ci permettono di avere tassi competitivi e tempi rapidi di erogazione."
+    question: "Posso lavorare su tutto il territorio nazionale?",
+    answer: "Sì, la nostra rete è attiva su tutto il territorio italiano. Puoi operare nella tua area di riferimento o su tutto il territorio nazionale, a seconda degli accordi stabiliti."
   },
   {
-    question: "Posso richiedere il prestito se sono stato segnalato come cattivo pagatore?",
-    answer: "Sì, la Cessione del Quinto è accessibile anche in caso di segnalazioni o protesti, in quanto non tiene conto delle segnalazioni nelle banche dati pubbliche."
+    question: "Quanto tempo richiede il processo di selezione?",
+    answer: "Il nostro processo è rapido: dopo l'invio della candidatura, un responsabile ti contatterà entro 24-48 ore per un primo colloquio conoscitivo. Se tutto va bene, puoi iniziare a operare nel giro di pochi giorni."
   },
   {
-    question: "È possibile estinguere anticipatamente la Cessione del Quinto?",
-    answer: "Sì, puoi estinguere anticipatamente il prestito in qualsiasi momento beneficiando dello storno degli interessi futuri dovuti."
+    question: "Cosa succede se non ho esperienza specifica nella cessione del quinto?",
+    answer: "Valutiamo positivamente anche chi proviene dal mondo dei mutui, dei prestiti personali o delle polizze. La formazione specifica sulla cessione del quinto viene fornita dal nostro team durante l'onboarding."
   },
   {
-    question: "Quanto costa la consulenza con Creditplan?",
-    answer: "Nessun costo accessorio."
+    question: "Perché scegliere Creditplan come rete di riferimento?",
+    answer: "Le nostre convenzioni bancarie con i primari partner sul mercato ci permettono di offrire ai clienti tassi competitivi e tempi rapidi, rendendo il tuo lavoro più efficace e i tuoi risultati più soddisfacenti."
   }
 ] as const;
 
@@ -118,23 +118,23 @@ const BENEFITS_DATA = [
   {
     icon: "M13 10V3L4 14h7v7l9-11h-7z",
     color: "blue",
-    title: "Erogazione rapida",
-    description: "In soli 48 ore operative",
-    detailedContent: "Con Creditplan, ricevi il tuo finanziamento in soli 48 ore operative dopo l'approvazione. Il nostro processo ottimizzato e le convenzioni con i principali istituti bancari garantiscono tempi di erogazione tra i più rapidi del mercato."
+    title: "Provvigioni competitive",
+    description: "Tra le più alte del settore",
+    detailedContent: "Le provvigioni Creditplan sono tra le più competitive del mercato del credito. Ogni pratica chiusa genera un guadagno immediato e trasparente, senza ritardi. I migliori agenti della nostra rete raggiungono ottimi risultati economici mensili grazie alla varietà del portafoglio prodotti disponibile."
   },
   {
     icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
     color: "green",
-    title: "100% sicuro",
-    description: "Certificato e garantito",
-    detailedContent: "La cessione del quinto è un prodotto finanziario completamente sicuro e garantito. La trattenuta diretta in busta paga o pensione offre massima sicurezza sia per te che per l'istituto erogante. Siamo iscritti al registro OAM M30 e operiamo in totale trasparenza."
+    title: "Rete certificata",
+    description: "OAM M30 — affidabilità garantita",
+    detailedContent: "Creditplan è iscritta al registro OAM M30 e opera nel settore da oltre 15 anni. Collaborare con una rete certificata e consolidata ti offre credibilità sul mercato, accesso a convenzioni bancarie esclusive e la certezza di lavorare in un contesto professionale e trasparente."
   },
   {
     icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
     color: "indigo",
-    title: "Tasso fisso",
-    description: "Rata fissa e importo costante",
-    detailedContent: "Con la cessione del quinto, il tasso di interesse è fisso per tutta la durata del finanziamento. Questo significa che la tua rata mensile rimane sempre la stessa, senza sorprese o variazioni, permettendoti di pianificare le tue spese con totale tranquillità."
+    title: "Supporto completo",
+    description: "Back-office e formazione dedicati",
+    detailedContent: "Non sei mai solo: il nostro team di back-office gestisce la parte burocratica e amministrativa di ogni pratica, permettendoti di concentrarti sulla relazione con il cliente e sull'acquisizione. Offriamo inoltre formazione continua, materiali di vendita professionali e un referente dedicato per ogni agente."
   }
 ] as const;
 
@@ -142,9 +142,9 @@ const WHY_CHOOSE_BENEFITS_DATA = [
   {
     icon: "M13 10V3L4 14h7v7l9-11h-7z",
     color: "blue",
-    title: "Velocità garantita",
-    description: "Approvazione preliminare in sole 24 ore lavorative",
-    detailedContent: "Con Creditplan, ricevi l'approvazione preliminare del tuo finanziamento in sole 24 ore lavorative. Il nostro team di consulenti esperti lavora in modo efficiente per valutare rapidamente la tua richiesta, garantendoti una risposta tempestiva e trasparente. Grazie alle nostre convenzioni con i principali istituti bancari, possiamo accelerare ogni fase del processo.",
+    title: "Onboarding rapido",
+    description: "Inizia a operare in sole 48 ore lavorative",
+    detailedContent: "Con Creditplan, puoi passare dalla candidatura all'operatività in sole 48 ore lavorative. Il nostro team dedicato gestisce tutto l'iter di attivazione in modo efficiente, garantendoti una risposta rapida e un avvio senza intoppi. Grazie alle nostre convenzioni bancarie già attive, sei subito pronto a chiudere le tue prime pratiche.",
     gradientFrom: "from-blue-500",
     gradientTo: "to-blue-600",
     borderColor: "border-blue-200",
@@ -154,9 +154,9 @@ const WHY_CHOOSE_BENEFITS_DATA = [
   {
     icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
     color: "green",
-    title: "Tranquillità totale",
-    description: "Rata fissa e importo costante per tutta la durata",
-    detailedContent: "Con la cessione del quinto, la tua rata mensile rimane sempre la stessa per tutta la durata del finanziamento. Non ci saranno sorprese o variazioni inaspettate: l'importo della rata è fisso e garantito, permettendoti di pianificare le tue spese con totale tranquillità e sicurezza finanziaria.",
+    title: "Flessibilità totale",
+    description: "Gestisci il tuo lavoro in piena autonomia",
+    detailedContent: "Come agente Creditplan, sei libero di organizzare il tuo tempo e il tuo portafoglio clienti come preferisci. Non ci sono vincoli d'orario o di zona geografica: puoi operare nel tuo territorio di riferimento o su scala nazionale, costruendo il tuo business con la massima autonomia e flessibilità.",
     gradientFrom: "from-emerald-500",
     gradientTo: "to-emerald-600",
     borderColor: "border-emerald-200",
@@ -166,9 +166,9 @@ const WHY_CHOOSE_BENEFITS_DATA = [
   {
     icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
     color: "amber",
-    title: "Massima trasparenza",
-    description: "Nessun costo nascosto, istruttoria gratuita e comunicazioni incluse",
-    detailedContent: "Con Creditplan, la trasparenza è al primo posto. Non ci sono costi nascosti o sorprese: l'istruttoria è completamente gratuita e tutte le comunicazioni sono incluse. Ti forniamo tutte le informazioni necessarie in modo chiaro e comprensibile, senza termini ambigui o clausole nascoste. La tua fiducia è la nostra priorità.",
+    title: "Massimo supporto",
+    description: "Back-office dedicato, formazione e materiali inclusi",
+    detailedContent: "Con Creditplan, non sei mai solo. Il nostro back-office gestisce l'intera parte burocratica e amministrativa di ogni pratica, liberandoti per quello che sai fare meglio: acquisire clienti e chiudere trattative. Offriamo formazione continua, materiali di vendita professionali e un referente dedicato sempre disponibile.",
     gradientFrom: "from-amber-500",
     gradientTo: "to-amber-600",
     borderColor: "border-amber-200",
@@ -180,21 +180,21 @@ const WHY_CHOOSE_BENEFITS_DATA = [
 const HOW_IT_WORKS_STEPS = [
   {
     step: 1,
-    title: "Compila il form",
-    description: "Inserisci i tuoi dati in meno di 2 minuti. Nessun documento richiesto in questa fase.",
-    detailedContent: "Il primo passo è semplicissimo: compila il nostro form online con i tuoi dati personali e lavorativi. Non serve alcun documento in questa fase iniziale - bastano pochi minuti per inserire le informazioni necessarie. Il form è completamente sicuro e i tuoi dati sono protetti. Una volta inviato, la tua richiesta viene immediatamente presa in carico dal nostro team."
+    title: "Invia la candidatura",
+    description: "Compila il form con i tuoi dati in meno di 2 minuti. Nessun documento richiesto in questa fase.",
+    detailedContent: "Il primo passo è semplicissimo: compila il form online con i tuoi dati personali e professionali. Non serve alcun documento in questa fase — bastano pochi minuti. Il form è completamente sicuro e i tuoi dati sono trattati con la massima riservatezza. Una volta inviata, la tua candidatura viene immediatamente presa in carico dal nostro team di selezione."
   },
   {
     step: 2,
-    title: "Ricevi la chiamata",
-    description: "Un nostro consulente esperto ti contatterà entro 2 ore per discutere la tua situazione.",
-    detailedContent: "Entro 2 ore dall'invio del form, un nostro consulente esperto ti contatterà telefonicamente. Durante questa chiamata gratuita e senza impegno, avrai l'opportunità di discutere la tua situazione finanziaria, chiarire eventuali dubbi e ricevere una consulenza personalizzata. Il nostro consulente ti guiderà attraverso tutte le opzioni disponibili e ti aiuterà a trovare la soluzione migliore per le tue esigenze."
+    title: "Colloquio conoscitivo",
+    description: "Un nostro responsabile ti contatterà entro 24 ore per un colloquio telefonico gratuito e senza impegno.",
+    detailedContent: "Entro 24 ore dall'invio della candidatura, un nostro responsabile ti contatterà telefonicamente. Durante questa chiamata gratuita e senza impegno, avrai l'opportunità di presentarti, discutere la tua esperienza nel settore finanziario e scoprire in dettaglio le condizioni di collaborazione. Il nostro team ti guiderà attraverso tutti i passi successivi e risponderà a ogni tua domanda."
   },
   {
     step: 3,
-    title: "Ricevi il denaro",
-    description: "Dopo l'approvazione, ricevi il tuo finanziamento sul conto in 48 ore.",
-    detailedContent: "Dopo l'approvazione della tua richiesta, il finanziamento viene erogato direttamente sul tuo conto corrente in sole 48 ore operative. Non ci sono ritardi o complicazioni: una volta approvato, il denaro arriva velocemente e in modo sicuro. La rata mensile verrà trattenuta direttamente dalla tua busta paga o pensione, senza dover ricordare scadenze o effettuare bonifici manuali."
+    title: "Inizia a lavorare",
+    description: "Dopo l'attivazione, hai accesso immediato alle convenzioni bancarie, al back-office e ai materiali di lavoro.",
+    detailedContent: "Una volta completato l'onboarding, ricevi accesso immediato all'intera piattaforma Creditplan: convenzioni bancarie esclusive, supporto back-office dedicato, materiali di vendita professionali e formazione continua. Sei pronto per acquisire i tuoi primi clienti e chiudere le tue prime pratiche di cessione del quinto in modo rapido ed efficiente."
   }
 ] as const;
 
@@ -540,7 +540,7 @@ const ReviewsModal = memo(({
                   ))}
                 </div>
                 <span className="text-lg font-semibold text-slate-900">4.9/5</span>
-                <span className="text-sm text-slate-600">• 98 recensioni su Google</span>
+                <span className="text-sm text-slate-600">• Oltre 98 recensioni su Google</span>
               </div>
             </div>
           </div>
@@ -774,20 +774,20 @@ export default function Home() {
               <header className="space-y-4">
                 <h1 className="text-5xl lg:text-7xl font-semibold lg:font-bold leading-[1.05] tracking-tight" itemProp="name">
                   <span className="block bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent">
-                    Ottieni fino a{' '}
+                    Diventa agente{' '}
                     <span className="relative inline-block">
                       <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600 bg-clip-text text-transparent font-extrabold">
-                        75.000€
+                        Creditplan
                       </span>
                       <span className="absolute -inset-1 bg-gradient-to-r from-blue-600/20 via-indigo-600/20 to-blue-600/20 blur-xl -z-10 rounded-lg"></span>
                     </span>
                   </span>
                   <span className="block bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 bg-clip-text text-transparent">
-                    con la cessione del quinto
+                    di cessione del quinto
                   </span>
                 </h1>
                 <p className="text-xl lg:text-2xl text-slate-600 font-light max-w-xl leading-relaxed" itemProp="description">
-                  Calcola il tuo preventivo in 30 secondi. Zero impegno, 100% online.
+                  Candidati in 2 minuti. Provvigioni competitive, supporto completo, rete consolidata.
                 </p>
               </header>
             </article>
@@ -820,7 +820,7 @@ export default function Home() {
                       <span className="font-bold text-slate-900">4.9/5</span> su Google
                     </p>
                     <p className="text-xs text-slate-500 mt-0.5">
-                      Oltre 2.000 recensioni verificate
+                      La reputazione che ti rappresenta
                     </p>
                   </div>
                 </div>
@@ -835,10 +835,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <header className="text-center mb-10 lg:mb-16">
             <h2 id="why-creditplan-heading" className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-              Perché scegliere Creditplan?
+              Perché collaborare con Creditplan?
             </h2>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              Semplifichiamo ogni aspetto del tuo finanziamento
+              Tutto ciò di cui hai bisogno per far crescere il tuo business nel credito
             </p>
           </header>
 
@@ -893,17 +893,17 @@ export default function Home() {
                   </div>
                   <h3 className="text-xl font-bold text-slate-900 mb-3">{benefit.title}</h3>
                   <p className="text-slate-600 leading-relaxed">
-                    {benefit.description.includes('24 ore') ? (
+                    {benefit.description.includes('48 ore') ? (
                       <>
-                        Approvazione preliminare in sole <span className={`font-bold ${benefit.textColor}`}>24 ore</span> lavorative
+                        Inizia a operare in sole <span className={`font-bold ${benefit.textColor}`}>48 ore</span> lavorative
                       </>
-                    ) : benefit.description.includes('Rata fissa') ? (
+                    ) : benefit.description.includes('autonomia') ? (
                       <>
-                        <span className={`font-bold ${benefit.textColor}`}>Rata fissa</span> e importo costante per tutta la durata
+                        Gestisci il tuo lavoro in <span className={`font-bold ${benefit.textColor}`}>piena autonomia</span>
                       </>
                     ) : (
                       <>
-                        <span className={`font-bold ${benefit.textColor}`}>Nessun costo nascosto</span>, istruttoria gratuita e comunicazioni incluse
+                        <span className={`font-bold ${benefit.textColor}`}>Back-office dedicato</span>, formazione e materiali inclusi
                       </>
                     )}
                   </p>
@@ -919,10 +919,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <header className="text-center mb-16">
             <h2 id="how-it-works-heading" className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4" itemProp="name">
-              Come funziona
+              Come funziona la selezione
             </h2>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto" itemProp="description">
-              Un processo semplice e veloce in soli 3 passaggi
+              Dalla candidatura all'operatività in soli 3 semplici passaggi
             </p>
           </header>
 
@@ -977,7 +977,7 @@ export default function Home() {
               <div className="relative rounded-3xl overflow-hidden shadow-2xl">
                 <Image
                   src="https://creditplan.it/wp-content/uploads/2023/02/03_CSQ.jpg"
-                  alt="Famiglia soddisfatta con Creditplan - Cessione del quinto per realizzare i propri progetti"
+                  alt="Agente professionale Creditplan - Rete di agenti cessione del quinto"
                   width={800}
                   height={600}
                   quality={60}
@@ -1003,19 +1003,19 @@ export default function Home() {
                       <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
                       <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
                     </svg>
-                    <span>Oltre 2.000 famiglie soddisfatte</span>
+                    <span>Rete attiva su tutto il territorio nazionale</span>
                   </div>
                   <h2 className="text-3xl lg:text-5xl font-bold text-white mb-4">
-                    Pronto a iniziare?
+                    Pronto a far parte del team?
                   </h2>
                   <p className="text-lg lg:text-xl text-blue-100 mb-8 leading-relaxed">
-                    Unisciti a migliaia di clienti soddisfatti. Il tuo finanziamento è a portata di clic.
+                    Unisciti alla rete Creditplan. Inizia a guadagnare con le tue pratiche di cessione del quinto.
                   </p>
                   <Button 
                     onClick={scrollToForm}
                     className="bg-white text-blue-600 hover:bg-blue-50 h-14 px-8 text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
                   >
-                    Richiedi subito
+                    Invia la candidatura
                     <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                     </svg>
@@ -1024,12 +1024,12 @@ export default function Home() {
                   {/* Stats */}
                   <div className="grid grid-cols-2 gap-4 mt-8 pt-8 border-t border-white/20">
                     <div>
-                      <div className="text-3xl font-bold text-white">48h</div>
-                      <div className="text-sm text-blue-100">Tempo medio</div>
+                      <div className="text-3xl font-bold text-white">24h</div>
+                      <div className="text-sm text-blue-100">Risposta garantita</div>
                     </div>
                     <div>
-                      <div className="text-3xl font-bold text-white">98%</div>
-                      <div className="text-sm text-blue-100">Soddisfazione</div>
+                      <div className="text-3xl font-bold text-white">15+</div>
+                      <div className="text-sm text-blue-100">Anni nel settore</div>
                     </div>
                   </div>
                 </div>
@@ -1163,7 +1163,7 @@ export default function Home() {
               Domande Frequenti
             </h2>
             <p className="text-lg lg:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-              Tutto quello che devi sapere sulla Cessione del Quinto.
+              Tutto quello che devi sapere per diventare agente di cessione del quinto con Creditplan.
             </p>
           </header>
 
@@ -1193,13 +1193,13 @@ export default function Home() {
                   Hai altre domande?
                 </h3>
                 <p className="text-sm sm:text-base text-slate-600 mb-4 sm:mb-6">
-                  I nostri consulenti sono pronti ad aiutarti. Nessun impegno, consulenza gratuita.
+                  Il nostro team è pronto a risponderti. Nessun impegno, colloquio gratuito.
                 </p>
                 <Button 
                   onClick={scrollToForm}
                   className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 h-10 sm:h-12 px-6 sm:px-8 text-sm sm:text-base font-bold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                 >
-                  Richiedi una consulenza gratuita
+                  Invia la tua candidatura
                   <svg className="w-4 h-4 sm:w-5 sm:h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>

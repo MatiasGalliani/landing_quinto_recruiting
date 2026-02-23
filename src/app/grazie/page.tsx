@@ -3,8 +3,8 @@ import Link from "next/link";
 import ConversionEvent from "@/components/ConversionEvent";
 
 export const metadata: Metadata = {
-  title: "Richiesta inviata | Grazie",
-  description: "Grazie! La tua richiesta è stata inviata con successo. Un nostro consulente ti contatterà a breve.",
+  title: "Candidatura inviata | Grazie",
+  description: "Grazie! La tua candidatura è stata inviata con successo. Un nostro responsabile ti contatterà a breve per un colloquio conoscitivo.",
   robots: { index: false, follow: false },
 };
 
@@ -21,9 +21,9 @@ export default function GraziePage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h1 className="text-3xl font-bold text-slate-900">Grazie! Richiesta inviata</h1>
+            <h1 className="text-3xl font-bold text-slate-900">Grazie! Candidatura inviata</h1>
             <p className="text-slate-600 mt-3">
-              Un nostro consulente ti contatterà entro <span className="font-semibold text-blue-600">2 ore</span>.
+              Un nostro responsabile ti contatterà entro <span className="font-semibold text-blue-600">24 ore</span> per un colloquio conoscitivo.
               Controlla la tua email per la conferma.
             </p>
             <div className="mt-8 flex items-center justify-center gap-3">

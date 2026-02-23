@@ -20,8 +20,8 @@ const geistMono = Geist_Mono({
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://creditplan.it';
 const siteName = 'Creditplan';
-const defaultTitle = 'Cessione del Quinto in 48 Ore | Prestito fino a 75.000€ | Creditplan';
-const defaultDescription = 'Ottieni fino a 75.000€ con la cessione del quinto in sole 48 ore. Processo rapido, sicuro e completamente digitale. Istruttoria gratuita, approvazione in 24h, erogazione in 48h. Richiedi ora senza impegno!';
+const defaultTitle = 'Diventa Agente di Cessione del Quinto | Unisciti alla Rete Creditplan';
+const defaultDescription = 'Entra nella rete Creditplan come agente di cessione del quinto. Provvigioni competitive, supporto back-office completo, formazione dedicata e accesso alle migliori convenzioni bancarie. Candidati ora in 2 minuti!';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -31,32 +31,26 @@ export const metadata: Metadata = {
   },
   description: defaultDescription,
   keywords: [
+    "agente cessione del quinto",
+    "diventare agente cessione del quinto",
+    "rete agenti creditplan",
+    "collaborare creditplan",
+    "mediatore creditizio",
+    "agente finanziario",
+    "lavoro cessione del quinto",
+    "provvigioni cessione del quinto",
+    "OAM agente",
+    "rete mediazione creditizia",
+    "creditplan agenti",
     "cessione del quinto",
-    "prestito cessione quinto",
-    "finanziamento cessione quinto",
-    "cessione quinto pensione",
-    "cessione quinto dipendenti",
-    "prestito dipendenti pubblici",
-    "prestito dipendenti privati",
-    "prestito pensionati",
-    "prestito fino a 75000 euro",
-    "prestito rapido 48 ore",
-    "prestito senza garante",
-    "prestito trattenuta busta paga",
-    "creditplan",
-    "prestito personale",
-    "finanziamento personale",
-    "prestito online",
-    "prestito veloce",
-    "prestito sicuro",
-    "prestito trasparente",
-    "prestito senza costi nascosti",
-    "prestito istruttoria gratuita",
-    "prestito approvazione rapida",
-    "prestito erogazione veloce",
     "delegazione di pagamento",
-    "prestito INPS",
-    "prestito ente pensionistico",
+    "agente mutui",
+    "consulente finanziario indipendente",
+    "lavoro finanza",
+    "candidatura agente finanziario",
+    "rete vendita crediti",
+    "agente prestiti personali",
+    "collaborazione professionale finanza",
   ],
   authors: [{ name: "Creditplan Italia Network di Mediazione Credizia" }],
   creator: "Creditplan",
@@ -112,8 +106,8 @@ export const metadata: Metadata = {
     yandex: process.env.NEXT_PUBLIC_YANDEX_VERIFICATION,
     yahoo: process.env.NEXT_PUBLIC_YAHOO_VERIFICATION,
   },
-  category: "Finanza e Prestiti",
-  classification: "Financial Services",
+  category: "Lavoro e Finanza",
+  classification: "Financial Services Recruitment",
   other: {
     'format-detection': 'telephone=yes',
     'mobile-web-app-capable': 'yes',
