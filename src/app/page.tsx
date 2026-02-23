@@ -975,19 +975,17 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-3xl blur-2xl opacity-20"></div>
               <div className="relative rounded-3xl overflow-hidden shadow-2xl">
                 <Image
-                  src="https://creditplan.it/wp-content/uploads/2023/02/03_CSQ.jpg"
-                  alt="Agente professionale Creditplan - Rete di agenti cessione del quinto"
+                  src="/team_image.png"
+                  alt="Team Creditplan - Rete di agenti di cessione del quinto"
                   width={800}
                   height={600}
-                  quality={60}
+                  quality={80}
                   loading="lazy"
-                  placeholder="blur"
-                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 800px"
                   draggable={false}
                   onContextMenu={(e) => e.preventDefault()}
                   className="w-full h-auto object-cover select-none"
-                  style={{ userSelect: 'none', WebkitUserSelect: 'none', MozUserSelect: 'none' }}
+                  style={{ userSelect: 'none', WebkitUserSelect: 'none', MozUserSelect: 'none', mixBlendMode: 'multiply' }}
                 />
               </div>
             </div>
