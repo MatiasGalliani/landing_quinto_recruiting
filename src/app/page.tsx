@@ -14,8 +14,8 @@ const FormSection = dynamic(() => import('@/components/FormSection').then(mod =>
 // Extract static data outside component to prevent recreation
 const FAQ_ITEMS = [
   {
-    question: "Cosa fa un agente di cessione del quinto?",
-    answer: "L'agente di cessione del quinto supporta clienti (dipendenti e pensionati) nell'ottenere finanziamenti tramite trattenuta diretta sullo stipendio o sulla pensione. Si occupa di acquisire nuovi clienti, gestire le pratiche e collaborare con gli istituti bancari convenzionati."
+    question: "Cosa fa uno specialista quinto?",
+    answer: "Lo specialista quinto supporta clienti (dipendenti e pensionati) nell'ottenere finanziamenti tramite trattenuta diretta sullo stipendio o sulla pensione. Si occupa di acquisire nuovi clienti, gestire le pratiche e collaborare con gli istituti bancari convenzionati."
   },
   {
     question: "Devo essere già iscritto all'OAM per candidarmi?",
@@ -783,7 +783,7 @@ export default function Home() {
                     </span>
                   </span>
                   <span className="block bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 bg-clip-text text-transparent">
-                    di cessione del quinto
+                    specialista quinto
                   </span>
                 </h1>
                 <p className="text-xl lg:text-2xl text-slate-600 font-light max-w-xl leading-relaxed" itemProp="description">
@@ -930,7 +930,7 @@ export default function Home() {
           <div className="max-w-sm mx-auto">
             <Image
               src="/business_man.png"
-              alt="Agente professionale Creditplan - Unisciti alla rete di agenti di cessione del quinto"
+              alt="Specialista quinto Creditplan - Unisciti alla rete di specialisti Creditplan"
               width={400}
               height={500}
               quality={80}
@@ -976,7 +976,7 @@ export default function Home() {
               <div className="relative rounded-3xl overflow-hidden shadow-2xl">
                 <Image
                   src="/team_image.png"
-                  alt="Team Creditplan - Rete di agenti di cessione del quinto"
+                  alt="Team Creditplan - Rete di specialisti quinto"
                   width={800}
                   height={600}
                   quality={80}
