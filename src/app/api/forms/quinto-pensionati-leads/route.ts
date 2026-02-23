@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
     
     // Validate required fields
     const requiredFields = [
-      'nome', 'cognome', 'mail', 'telefono', 'impiego', 'nettoMensile', 'importoRichiesto'
+      'nome', 'cognome', 'mail', 'telefono', 'iscrittoOAM', 'anniOAM',
     ];
     
     const missingFields = requiredFields.filter(field => !body[field]);
