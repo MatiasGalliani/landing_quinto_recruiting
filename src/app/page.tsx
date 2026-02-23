@@ -1160,7 +1160,7 @@ export default function Home() {
               Domande Frequenti
             </h2>
             <p className="text-lg lg:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-              Tutto quello che devi sapere per diventare agente di cessione del quinto con Creditplan.
+              Tutto quello che devi sapere per diventare collaboratore Creditplan.
             </p>
           </header>
 

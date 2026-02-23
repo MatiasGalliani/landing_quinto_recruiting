@@ -20,8 +20,8 @@ const geistMono = Geist_Mono({
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://creditplan.it';
 const siteName = 'Creditplan';
-const defaultTitle = 'Diventa Agente di Cessione del Quinto | Unisciti alla Rete Creditplan';
-const defaultDescription = 'Entra nella rete Creditplan come agente di cessione del quinto. Provvigioni competitive, supporto back-office completo, formazione dedicata e accesso alle migliori convenzioni bancarie. Candidati ora in 2 minuti!';
+const defaultTitle = 'Diventa collaboratore Creditplan | Unisciti alla Rete Creditplan';
+const defaultDescription = 'Entra nella rete Creditplan come collaboratore. Provvigioni competitive, supporto back-office completo, formazione dedicata e accesso alle migliori convenzioni bancarie. Candidati ora in 2 minuti!';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
