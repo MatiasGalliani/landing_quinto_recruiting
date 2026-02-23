@@ -927,18 +927,17 @@ export default function Home() {
           </header>
 
           {/* Trust Image */}
-          <div className="max-w-xl mx-auto">
+          <div className="max-w-sm mx-auto">
             <Image
-              src="https://creditplan.it/wp-content/uploads/2025/11/Progetto-senza-titolo-3.png"
-              alt="Come funziona la cessione del quinto con Creditplan - Processo in 3 semplici passaggi"
-              width={600}
-              height={300}
-              quality={60}
+              src="/business_man.png"
+              alt="Agente professionale Creditplan - Unisciti alla rete di agenti di cessione del quinto"
+              width={400}
+              height={500}
+              quality={80}
               loading="lazy"
-              placeholder="blur"
-              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
-              className="w-full h-auto object-cover rounded-xl"
+              sizes="(max-width: 768px) 80vw, 400px"
+              className="w-full h-auto object-contain"
+              style={{ mixBlendMode: 'multiply' }}
             />
           </div>
 
