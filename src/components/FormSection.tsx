@@ -180,7 +180,7 @@ export function FormSection() {
         submittedAt: new Date().toISOString(),
       };
 
-      const response = await fetch("/api/forms/quinto-pensionati-leads", {
+      const response = await fetch("/api/forms/form-quinto-recruiting", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
